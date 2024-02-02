@@ -3,7 +3,6 @@ import "../globals.css";
 import SearchField from "./SearchField";
 import Sidebar from "./Sidebar";
 import axios from "axios";
-import { Pokemon } from "@/types";
 import ResultCard from "./ResultCard";
 import {
   Pagination,
