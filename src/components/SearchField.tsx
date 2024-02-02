@@ -32,9 +32,9 @@ function SearchField({ query, setQuery, searchHandler }: SearchFieldProps) {
           <SearchIcon />
         </Button>
       </div>
-      <div className="flex flex-row gap-2 place-content-around">
+      <div className="flex flex-row flex-wrap gap-2 place-content-around">
         <Select>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[45%]">
             <SelectValue placeholder="Type" />
           </SelectTrigger>
           <SelectContent>
@@ -59,7 +59,7 @@ function SearchField({ query, setQuery, searchHandler }: SearchFieldProps) {
         </Select>
 
         <Select>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[45%]">
             <SelectValue placeholder="Weakness" />
           </SelectTrigger>
           <SelectContent>
@@ -84,7 +84,7 @@ function SearchField({ query, setQuery, searchHandler }: SearchFieldProps) {
         </Select>
 
         <Select>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[45%]">
             <SelectValue placeholder="Ability" />
           </SelectTrigger>
           <SelectContent>
@@ -95,7 +95,7 @@ function SearchField({ query, setQuery, searchHandler }: SearchFieldProps) {
         </Select>
 
         <Select>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[45%]">
             <SelectValue placeholder="Height" />
           </SelectTrigger>
           <SelectContent>
@@ -106,7 +106,7 @@ function SearchField({ query, setQuery, searchHandler }: SearchFieldProps) {
         </Select>
 
         <Select>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[45%]">
             <SelectValue placeholder="Weight" />
           </SelectTrigger>
           <SelectContent>
