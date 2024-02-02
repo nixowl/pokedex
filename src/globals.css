@@ -8,7 +8,7 @@ body,html,:root {
 } 
 
  #root {
-    @apply flex flex-col h-full max-w-screen-xl mx-auto;
+    @apply flex flex-col h-full w-auto;
   }
 
 
