@@ -15,9 +15,8 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-
 function App() {
-  const [results, setResults] = useState<Pokemon | undefined>(undefined);
+  // const [results, setResults] = useState<Pokemon | undefined>(undefined);
   const [query, setQuery] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   // const [page, setPage] = useState(1);
@@ -35,7 +34,6 @@ function App() {
       );
       if (response) {
         console.log("response: ", response.data);
-        setResults(response.data);
       }
     } catch (error) {
       console.error("Error fetching pokemon: ", error);
@@ -56,7 +54,6 @@ function App() {
           />
           <div className="flex flex-col md:flex-wrap md:flex-row gap-3 justify-center items-center h-full">
             <ResultCard onClick={toggleDrawer} />
-
           </div>
           <div>
             <Pagination>
