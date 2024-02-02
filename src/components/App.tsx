@@ -4,6 +4,16 @@ import SearchField from "./SearchField";
 import Sidebar from "./Sidebar";
 import axios from "axios";
 import { Pokemon } from "@/types";
+import ResultCard from "./ResultCard";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 function App() {
   const [results, setResults] = useState<Pokemon | undefined>(undefined);
@@ -34,23 +44,41 @@ function App() {
       <header className="bg-stone-300 p-4 rounded-md m-2">
         hello im a header
       </header>
-      <main className="flex flex-row flex-1 p-4 gap-4 justify-between place-items-center w-full">
-        <section className="flex flex-col basis-4/6 h-full">
+      <main className="flex flex-col flex-1 gap-4 justify-between place-items-center">
+        <section className="flex flex-col md:basis-4/6 h-full">
           <SearchField
             setQuery={setQuery}
             query={query}
             searchHandler={searchHandler}
           />
-          <div className="flex flex-col justify-center items-center h-full">
-            Placeholder for search results
-            <hr />
-            <div>
-              
-            </div>
+          <div className="flex flex-row flex-wrap gap-3 justify-center items-center h-full">
+            <ResultCard />
+            <ResultCard />
+            <ResultCard />
+            <ResultCard />
+            <ResultCard />
           </div>
         </section>
-        <section className="flex flex-col basis-2/6">
+        <section className="flex flex-col md:basis-2/6">
           <Sidebar />
+        </section>
+        <section>
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href="#" />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">1</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext href="#" />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </section>
       </main>
       <footer className="bg-stone-300 p-4 rounded-md m-2">
