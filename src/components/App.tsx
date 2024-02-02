@@ -15,9 +15,12 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
+
 function App() {
   const [results, setResults] = useState<Pokemon | undefined>(undefined);
   const [query, setQuery] = useState("");
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  // const [page, setPage] = useState(1);
 
   const searchHandler = async () => {
     console.log("fetching pokemon...");
@@ -39,51 +42,46 @@ function App() {
     }
   };
 
+  const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
+
   return (
     <>
-      <header className="bg-stone-300 p-4 rounded-md m-2">
-        hello im a header
-      </header>
-      <main className="flex flex-col flex-1 gap-4 justify-between place-items-center">
-        <section className="flex flex-col md:basis-4/6 h-full">
+      <header className="bg-card p-4 rounded-md m-2">hello im a header</header>
+      <main className="flex flex-row flex-1 gap-4 justify-between place-items-center">
+        <section className="flex flex-col gap-4 h-full w-2/3">
           <SearchField
             setQuery={setQuery}
             query={query}
             searchHandler={searchHandler}
           />
-          <div className="flex flex-row flex-wrap gap-3 justify-center items-center h-full">
-            <ResultCard />
-            <ResultCard />
-            <ResultCard />
-            <ResultCard />
-            <ResultCard />
+          <div className="flex flex-col md:flex-wrap md:flex-row gap-3 justify-center items-center h-full">
+            <ResultCard onClick={toggleDrawer} />
+
+          </div>
+          <div>
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious href="#" />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#">1</PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationEllipsis />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext href="#" />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
           </div>
         </section>
-        <section className="flex flex-col md:basis-2/6">
-          <Sidebar />
-        </section>
-        <section>
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious href="#" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">1</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext href="#" />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+        <section className="flex flex-col min-w-1/3">
+          {isDrawerOpen && <Sidebar />}
         </section>
       </main>
-      <footer className="bg-stone-300 p-4 rounded-md m-2">
-        im a footer. bye
-      </footer>
+      <footer className="bg-card p-4 rounded-md m-2">im a footer. bye</footer>
       {/* Screen size indicators */}
       <div className="fixed bottom-1 left-1 z-50 flex size-6 items-center justify-center rounded-full bg-gray-800 p-3 font-mono text-xs text-white">
         <div className="block sm:hidden">xs</div>
