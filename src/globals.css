@@ -4,17 +4,17 @@
 
 
 body,html,:root {
-  @apply bg-background h-full;
+  @apply bg-background h-full scroll-smooth ;
 } 
 
  #root {
-    @apply flex flex-col h-full w-auto;
+    @apply flex flex-col h-full w-auto scroll-smooth;
   }
 
 
 @layer base {
   :root {
-    --background: 29 5% 70%;
+    --background: 29 5% 80%;
     --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;
     --card-foreground: 20 14.3% 4.1%;
