@@ -1,30 +1,16 @@
-# React + TypeScript + Vite
+# Pokedex
+A collaborative project for a Pokedex webapp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
+- Search and filter Pokémon
+- View basic info in search view, click to expand and view more information for selected Pokémon
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## To-do
+- [ ] Add content to drawer
+- [ ] Move components/hooks etc out of App.tsx and into their own files - probably save this for when all components are added so we know what is going where
+- [ ] Add pagination pages (<- Prev 1 2 3 4 5 ... Next -> instead of just <- Prev currentpage Next ->)
+- [ ] Add sidebar or something more desktop appropriate to render when a card is clicked
+- [ ] Startup page/component
+- [ ] Header
+- [ ] Footer
+- [ ] Add loading states
