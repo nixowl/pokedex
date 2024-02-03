@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import "../globals.css";
 import SearchField from "./SearchField";
-import Sidebar from "./Sidebar";
 import axios from "axios";
 import ResultCard from "./ResultCard";
 import {
@@ -12,6 +11,16 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "./ui/drawer";
 import { Pokemon, PokemonListItem } from "@/types";
 
 function App() {
@@ -78,25 +87,39 @@ function App() {
   return (
     <>
       <header className="bg-card p-3 rounded-md mb-3">hello im a header</header>
-      <main className="flex flex-row flex-1 gap-4 justify-between place-items-center">
+      <main className="flex flex-col flex-1 gap-4 justify-between place-items-center">
         <section className="flex flex-col gap-4 h-full w-2/3">
           <SearchField setQuery={setQuery} query={query} />
-          <div className="flex flex-col md:flex-wrap md:flex-row gap-3 justify-center items-center h-full">
-            {pokemonDetails.map((pokemon) => (
-              <ResultCard
-                key={pokemon.id}
-                pokemon={pokemon}
-                onClick={toggleDrawer}
-              />
-            ))}
-          </div>
+          <Drawer>
+            <DrawerTrigger>
+              <div className="flex flex-col md:flex-wrap md:flex-row gap-3 justify-center items-center h-full">
+                {pokemonDetails.map((pokemon) => (
+                  <ResultCard
+                    key={pokemon.id}
+                    pokemon={pokemon}
+                    onClick={toggleDrawer}
+                  />
+                ))}
+              </div>
+            </DrawerTrigger>
+            <DrawerContent>
+              <DrawerHeader>
+                <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+                <DrawerDescription>
+                  This action cannot be undone.
+                </DrawerDescription>
+              </DrawerHeader>
+              <DrawerFooter>
+                <DrawerClose>
+                </DrawerClose>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
           <div>
             <Pagination>
               <PaginationContent>
                 <PaginationItem>
-                  <PaginationPrevious
-                    onClick={prevPage}
-                  >
+                  <PaginationPrevious onClick={prevPage}>
                     Previous
                   </PaginationPrevious>
                 </PaginationItem>
@@ -112,9 +135,6 @@ function App() {
               </PaginationContent>
             </Pagination>
           </div>
-        </section>
-        <section className="flex flex-col min-w-1/3">
-          {isDrawerOpen && <Sidebar />}
         </section>
       </main>
       <footer className="bg-card p-4 rounded-md m-2">im a footer. bye</footer>
