@@ -20,10 +20,9 @@ import {
 type SearchFieldProps = {
   query: string;
   setQuery: Dispatch<SetStateAction<string>>;
-  searchHandler: () => Promise<void>;
 }
 
-function SearchField({ query, setQuery, searchHandler }: SearchFieldProps) {
+function SearchField({ query, setQuery }: SearchFieldProps) {
 
   return (
     <div className="flex flex-col p-4 gap-3">
@@ -34,7 +33,7 @@ function SearchField({ query, setQuery, searchHandler }: SearchFieldProps) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <Button onClick={searchHandler}>
+        <Button>
           <SearchIcon />
         </Button>
       </div>

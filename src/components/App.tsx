@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "../globals.css";
 import SearchField from "./SearchField";
 import Sidebar from "./Sidebar";
@@ -7,67 +7,107 @@ import ResultCard from "./ResultCard";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { Pokemon, PokemonListItem } from "@/types";
 
 function App() {
   // const [results, setResults] = useState<Pokemon | undefined>(undefined);
+  const [pokemonDetails, setPokemonDetails] = useState<Pokemon[]>([]);
   const [query, setQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [offset, setOffset] = useState(0);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   // const [page, setPage] = useState(1);
 
-  const searchHandler = async () => {
-    console.log("fetching pokemon...");
+  const fetchPokemonList = useCallback(async () => {
+    console.log("fetching pokémon");
     try {
-      const response = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon/${query}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+      const { data } = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon/?limit=12&offset=${offset}`
       );
-      if (response) {
-        console.log("response: ", response.data);
-      }
+      console.log("data: ", data.results);
+      return data.results;
     } catch (error) {
-      console.error("Error fetching pokemon: ", error);
+      console.error("Error fetching pokémon: ", error);
+    }
+  }, [offset]);
+
+  const fetchPokemonDetails = async (
+    pokemonList: PokemonListItem[]
+  ): Promise<Pokemon[]> => {
+    try {
+      const detailsPromises = pokemonList.map((pokemon) =>
+        axios.get<Pokemon>(pokemon.url).then((response) => response.data)
+      );
+      const details = await Promise.all(detailsPromises);
+      console.log("details: ", details)
+      return details;
+    } catch (error) {
+      console.error("Error fetching Pokémon details:", error);
+      return [];
     }
   };
 
+ useEffect(() => {
+   const fetchAndDisplayPokemon = async () => {
+     const pokemonListItems = await fetchPokemonList();
+     if (pokemonListItems) {
+       const details = await fetchPokemonDetails(pokemonListItems);
+       setPokemonDetails(details);
+     }
+   };
+
+   fetchAndDisplayPokemon().catch(console.error);
+ }, [fetchPokemonList]); 
+
+  
+  const handlePageChange = (newPage: number) => {
+    const newOffset = (newPage - 1) * 12;
+    setCurrentPage(newPage);
+    setOffset(newOffset);
+  };
+
+   const nextPage = () => handlePageChange(currentPage + 1);
+   const prevPage = () => handlePageChange(currentPage - 1);
   const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
 
   return (
     <>
-      <header className="bg-card p-4 rounded-md m-2">hello im a header</header>
+      <header className="bg-card p-3 rounded-md mb-3">hello im a header</header>
       <main className="flex flex-row flex-1 gap-4 justify-between place-items-center">
         <section className="flex flex-col gap-4 h-full w-2/3">
-          <SearchField
-            setQuery={setQuery}
-            query={query}
-            searchHandler={searchHandler}
-          />
+          <SearchField setQuery={setQuery} query={query} />
           <div className="flex flex-col md:flex-wrap md:flex-row gap-3 justify-center items-center h-full">
-            <ResultCard onClick={toggleDrawer} />
+            {pokemonDetails.map((pokemon) => (
+              <ResultCard
+                key={pokemon.id}
+                pokemon={pokemon}
+                onClick={toggleDrawer}
+              />
+            ))}
           </div>
           <div>
             <Pagination>
               <PaginationContent>
                 <PaginationItem>
-                  <PaginationPrevious href="#" />
+                  <PaginationPrevious
+                    onClick={prevPage}
+                  >
+                    Previous
+                  </PaginationPrevious>
                 </PaginationItem>
                 <PaginationItem>
-                  <PaginationLink href="#">1</PaginationLink>
+                  <PaginationLink onClick={() => handlePageChange(1)}>
+                    {currentPage}
+                  </PaginationLink>
                 </PaginationItem>
+
                 <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext href="#" />
+                  <PaginationNext onClick={nextPage}>Next</PaginationNext>
                 </PaginationItem>
               </PaginationContent>
             </Pagination>
