@@ -1,30 +1,43 @@
-export type Pokemon = {
-  name: string;
-  types: {
-    type: {
-      name: string;
-    }
-  }[];
-  id: number;
-  sprites: {
-    front_default: string;
-  };
-}
+export type Types = {
+  type_a: string;
+  type_b: string;
+};
 
-export type PokemonListItem = {
+export type Pokemon = {
+  id: number;
   name: string;
-  url: string;
+  type_a: string;
+  type_b: string;
 }
 
 export type PokemonList = {
-  count: number;
-  next: string;
-  previous: string;
-  results: PokemonListItem[];
+  pokemon: Pokemon[];
 }
 
+export type SearchCriteria = {
+  name?: string;
+  type?: string;
+};
 
 export type Props = {
   children: React.ReactNode;
 };
 
+export const BadgeVariants = {
+  default: "",
+  destructive: "",
+  outline: "",
+  secondary: "",
+  ghost: "",
+  normal: "",
+  fire: "",
+  water: "",
+  flying: "",
+  fighting: "",
+  poison: "",
+  electric: "",
+  ground: "",
+  rock: "",
+  psychic: "",
+  ice: "",
+} as const;
