@@ -19,14 +19,18 @@ import {
 
 type SearchFieldProps = {
   query: string;
+  type: string;
   setQuery: Dispatch<SetStateAction<string>>;
+  setType: Dispatch<SetStateAction<string>>;
 }
 
-function SearchField({ query, setQuery }: SearchFieldProps) {
+function SearchField({ query, setQuery, type, setType }: SearchFieldProps) {
 
   return (
     <div className="flex flex-col p-4 gap-3">
       <div className="flex flex-row gap-1">
+
+        {/* Text search box */}
         <Input
           type="text"
           placeholder="Search Pokémon"
@@ -37,90 +41,101 @@ function SearchField({ query, setQuery }: SearchFieldProps) {
           <SearchIcon />
         </Button>
       </div>
+
+      {/* Filter accordion */}
       <div className="flex flex-row flex-wrap gap-2 place-content-around">
         <Accordion type="single" className="w-full" collapsible>
           <AccordionItem value="filters">
             <AccordionTrigger>Filters</AccordionTrigger>
             <AccordionContent className="flex flex-row flex-wrap gap-2 place-content-around">
-                          <Select>
-                  <SelectTrigger className="w-[45%]">
-                    <SelectValue placeholder="Type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="normal">Normal</SelectItem>
-                    <SelectItem value="fire">Fire</SelectItem>
-                    <SelectItem value="water">Water</SelectItem>
-                    <SelectItem value="flying">Flying</SelectItem>
-                    <SelectItem value="fighting">Fighting</SelectItem>
-                    <SelectItem value="poison">Poison</SelectItem>
-                    <SelectItem value="electric">Electric</SelectItem>
-                    <SelectItem value="ground">Ground</SelectItem>
-                    <SelectItem value="rock">Rock</SelectItem>
-                    <SelectItem value="psychic">Psychic</SelectItem>
-                    <SelectItem value="ice">Ice</SelectItem>
-                    <SelectItem value="bug">Bug</SelectItem>
-                    <SelectItem value="ghost">Ghost</SelectItem>
-                    <SelectItem value="steel">Steel</SelectItem>
-                    <SelectItem value="dragon">Dragon</SelectItem>
-                    <SelectItem value="dark">Dark</SelectItem>
-                    <SelectItem value="fairy">Fairy</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Select>
-                  <SelectTrigger className="w-[45%]">
-                    <SelectValue placeholder="Weakness" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="normal">Normal</SelectItem>
-                    <SelectItem value="fire">Fire</SelectItem>
-                    <SelectItem value="water">Water</SelectItem>
-                    <SelectItem value="flying">Flying</SelectItem>
-                    <SelectItem value="fighting">Fighting</SelectItem>
-                    <SelectItem value="poison">Poison</SelectItem>
-                    <SelectItem value="electric">Electric</SelectItem>
-                    <SelectItem value="ground">Ground</SelectItem>
-                    <SelectItem value="rock">Rock</SelectItem>
-                    <SelectItem value="psychic">Psychic</SelectItem>
-                    <SelectItem value="ice">Ice</SelectItem>
-                    <SelectItem value="bug">Bug</SelectItem>
-                    <SelectItem value="ghost">Ghost</SelectItem>
-                    <SelectItem value="steel">Steel</SelectItem>
-                    <SelectItem value="dragon">Dragon</SelectItem>
-                    <SelectItem value="dark">Dark</SelectItem>
-                    <SelectItem value="fairy">Fairy</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Select>
-                  <SelectTrigger className="w-[45%]">
-                    <SelectValue placeholder="Ability" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="light">Light</SelectItem>
-                    <SelectItem value="dark">Dark</SelectItem>
-                    <SelectItem value="system">System</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Select>
-                  <SelectTrigger className="w-[45%]">
-                    <SelectValue placeholder="Height" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="light">Light</SelectItem>
-                    <SelectItem value="dark">Dark</SelectItem>
-                    <SelectItem value="system">System</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Select>
-                  <SelectTrigger className="w-[45%]">
-                    <SelectValue placeholder="Weight" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="light">Light</SelectItem>
-                    <SelectItem value="dark">Dark</SelectItem>
-                    <SelectItem value="system">System</SelectItem>
-                  </SelectContent>
-                </Select>
-             
+
+              {/* "Types" dropdown, this is the only dropdown that works right now */}
+              <Select
+                value={type}
+                onValueChange={(newValue) => setType(newValue)}>
+                <SelectTrigger className="w-[45%]">
+                  <SelectValue placeholder="Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="normal">Normal</SelectItem>
+                  <SelectItem value="fire">Fire</SelectItem>
+                  <SelectItem value="water">Water</SelectItem>
+                  <SelectItem value="flying">Flying</SelectItem>
+                  <SelectItem value="fighting">Fighting</SelectItem>
+                  <SelectItem value="poison">Poison</SelectItem>
+                  <SelectItem value="electric">Electric</SelectItem>
+                  <SelectItem value="ground">Ground</SelectItem>
+                  <SelectItem value="rock">Rock</SelectItem>
+                  <SelectItem value="psychic">Psychic</SelectItem>
+                  <SelectItem value="ice">Ice</SelectItem>
+                  <SelectItem value="bug">Bug</SelectItem>
+                  <SelectItem value="ghost">Ghost</SelectItem>
+                  <SelectItem value="steel">Steel</SelectItem>
+                  <SelectItem value="dragon">Dragon</SelectItem>
+                  <SelectItem value="dark">Dark</SelectItem>
+                  <SelectItem value="fairy">Fairy</SelectItem>
+                </SelectContent>
+              </Select>
+
+              {/* Dropdown 2, all the dropdowns from here are just placeholders for design purposes */}
+              <Select>
+                <SelectTrigger className="w-[45%]">
+                  <SelectValue placeholder="Weakness" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="normal">Normal</SelectItem>
+                  <SelectItem value="fire">Fire</SelectItem>
+                  <SelectItem value="water">Water</SelectItem>
+                  <SelectItem value="flying">Flying</SelectItem>
+                  <SelectItem value="fighting">Fighting</SelectItem>
+                  <SelectItem value="poison">Poison</SelectItem>
+                  <SelectItem value="electric">Electric</SelectItem>
+                  <SelectItem value="ground">Ground</SelectItem>
+                  <SelectItem value="rock">Rock</SelectItem>
+                  <SelectItem value="psychic">Psychic</SelectItem>
+                  <SelectItem value="ice">Ice</SelectItem>
+                  <SelectItem value="bug">Bug</SelectItem>
+                  <SelectItem value="ghost">Ghost</SelectItem>
+                  <SelectItem value="steel">Steel</SelectItem>
+                  <SelectItem value="dragon">Dragon</SelectItem>
+                  <SelectItem value="dark">Dark</SelectItem>
+                  <SelectItem value="fairy">Fairy</SelectItem>
+                </SelectContent>
+              </Select>
+
+              {/* Dropdown 3 */}
+              <Select>
+                <SelectTrigger className="w-[45%]">
+                  <SelectValue placeholder="Ability" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="light">Light</SelectItem>
+                  <SelectItem value="dark">Dark</SelectItem>
+                  <SelectItem value="system">System</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select>
+                <SelectTrigger className="w-[45%]">
+                  <SelectValue placeholder="Height" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="light">Light</SelectItem>
+                  <SelectItem value="dark">Dark</SelectItem>
+                  <SelectItem value="system">System</SelectItem>
+                </SelectContent>
+              </Select>
+
+              {/* Dropdown 4 */}
+              <Select>
+                <SelectTrigger className="w-[45%]">
+                  <SelectValue placeholder="Weight" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="light">Light</SelectItem>
+                  <SelectItem value="dark">Dark</SelectItem>
+                  <SelectItem value="system">System</SelectItem>
+                </SelectContent>
+              </Select>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
